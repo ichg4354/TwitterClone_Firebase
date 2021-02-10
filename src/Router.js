@@ -1,13 +1,11 @@
-import React, { useState } from "react";
 import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Auth from "./routes/Auth";
 import EditProfile from "./routes/EditProfile";
 import Home from "./routes/Home";
 import Profile from "./routes/Profile";
 
-const AppRoute = () => {
-  const [loggedIn, setLoggedIn] = useState(true);
-  return loggedIn ? (
+const AppRoute = ({ loggedIn }) =>
+  loggedIn ? (
     <>
       <Router>
         <Switch>
@@ -32,6 +30,5 @@ const AppRoute = () => {
       </Switch>
     </Router>
   );
-};
 
 export default AppRoute;
