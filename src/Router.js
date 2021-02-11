@@ -1,10 +1,10 @@
 import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Auth from "./routes/Auth";
-import EditProfile from "./routes/EditProfile";
-import Home from "./routes/Home";
-import Profile from "./routes/Profile";
+import Auth from "routes/Auth";
+import EditProfile from "routes/EditProfile";
+import Home from "routes/Home";
+import Profile from "routes/Profile";
 
-const AppRoute = ({ loggedIn }) =>
+const AppRoute = ({ loggedIn, setLoggedIn }) =>
   loggedIn ? (
     <>
       <Router>
@@ -15,7 +15,7 @@ const AppRoute = ({ loggedIn }) =>
           <Route path="/profile" exact>
             <Profile />
           </Route>
-          <Route paht="/editProfile" exact>
+          <Route path="/editProfile" exact>
             <EditProfile />
           </Route>
         </Switch>
@@ -25,7 +25,7 @@ const AppRoute = ({ loggedIn }) =>
     <Router>
       <Switch>
         <Route path="/" exact>
-          <Auth />
+          <Auth setLoggedIn={setLoggedIn} />
         </Route>
       </Switch>
     </Router>
