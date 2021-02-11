@@ -46,7 +46,7 @@ const Auth = () => {
       <form onSubmit={onSubmit}>
         <input
           name="email"
-          placeholder="email"
+          placeholder="Email"
           onChange={onChange}
           type="text"
           value={email}
@@ -54,13 +54,20 @@ const Auth = () => {
         ></input>
         <input
           name="password"
-          placeholder="password"
+          placeholder="Password"
           onChange={onChange}
           type="password"
           value={password}
           required
         ></input>
         <input type="submit" value={newUser ? "Log in" : "Sign Up"}></input>
+        <span
+          onClick={() => {
+            newUser ? setNewUser(false) : setNewUser(true);
+          }}
+        >
+          {newUser ? "Are you New here?" : "Do you have a account?"}
+        </span>
         <span>{error}</span>
       </form>
       <div>
