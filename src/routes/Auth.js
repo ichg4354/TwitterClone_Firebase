@@ -1,10 +1,11 @@
 import { authService } from "fBase";
 import React, { useState } from "react";
 
-const Auth = ({ setLoggedIn }) => {
+const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newUser, setNewUser] = useState(false);
+  const [error, setError] = useState();
   const clearInput = () => {
     setEmail("");
     setPassword("");
@@ -14,23 +15,19 @@ const Auth = ({ setLoggedIn }) => {
     let UserData;
     try {
       if (newUser === false) {
-        const UserData = await authService.createUserWithEmailAndPassword(
+        UserData = await authService.createUserWithEmailAndPassword(
           email,
           password
         );
         setNewUser(true);
-        setLoggedIn(true);
-        console.log(UserData);
       } else {
-        const UserData = await authService.signInWithEmailAndPassword(
+        UserData = await authService.signInWithEmailAndPassword(
           email,
           password
         );
-        console.log(UserData);
-        setLoggedIn(true);
       }
     } catch (error) {
-      alert(error);
+      setError(error.message);
     }
     clearInput();
   };
@@ -64,6 +61,7 @@ const Auth = ({ setLoggedIn }) => {
           required
         ></input>
         <input type="submit" value={newUser ? "Log in" : "Sign Up"}></input>
+        <span>{error}</span>
       </form>
       <div>
         <button>Sign in with Google</button>

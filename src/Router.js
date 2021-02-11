@@ -25,7 +25,7 @@ const AppRoute = ({ loggedIn, setLoggedIn }) =>
     <Router>
       <Switch>
         <Route path="/" exact>
-          <Auth setLoggedIn={setLoggedIn} />
+          <Auth />
         </Route>
       </Switch>
     </Router>

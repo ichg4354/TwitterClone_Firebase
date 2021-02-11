@@ -3,13 +3,21 @@ import { authService } from "fBase";
 import AppRoute from "Router";
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(
-    authService.currentUser ? true : false
-  );
-  useEffect(() => console.log(loggedIn), [loggedIn]);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [init, setInit] = useState(false);
+  useEffect(() => {
+    authService.onAuthStateChanged((user) => {
+      if (user) {
+        setLoggedIn(true);
+      } else {
+        setLoggedIn(false);
+      }
+      setInit(true);
+    });
+  }, []);
   return (
     <>
-      <AppRoute loggedIn={loggedIn} setLoggedIn={(bool) => setLoggedIn(bool)} />
+      {init ? <AppRoute loggedIn={loggedIn} /> : <h1>LOADING...</h1>}
       <footer>&copy;{new Date().getFullYear} TwitterClone</footer>
     </>
   );
