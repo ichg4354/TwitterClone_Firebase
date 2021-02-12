@@ -18,7 +18,7 @@ function App() {
   return (
     <>
       {init ? <AppRoute loggedIn={loggedIn} /> : <h1>LOADING...</h1>}
-      <footer>&copy;{new Date().getFullYear} TwitterClone</footer>
+      <footer>&copy;{new Date().getFullYear()} TwitterClone</footer>
     </>
   );
 }
