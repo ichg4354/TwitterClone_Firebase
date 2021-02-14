@@ -1,19 +1,33 @@
 import Navigation from "components/Navigation";
-import { authService } from "fBase";
+import { authService, dataService } from "fBase";
 import React from "react";
-import { useState } from "react/cjs/react.development";
+import { useEffect, useState } from "react/cjs/react.development";
 
 const Home = () => {
   const [tweet, setTweet] = useState("");
-  const onSubmit = (event) => {
+
+  const onSubmit = async (event) => {
     event.preventDefault();
+    await dataService.collection("tweets").add({
+      tweet: tweet,
+      date: Date.now(),
+    });
+    setTweet("");
   };
+
   const onChange = (event) => {
     const {
       target: { value },
     } = event;
     setTweet(value);
   };
+
+  const getData = async () => {
+    const data = await dataService.collection("tweets").get({ query: "tweet" });
+    console.log(data);
+  };
+
+  useEffect(() => getData(), []);
   return (
     <div>
       <h1>HOME</h1>
@@ -26,6 +40,7 @@ const Home = () => {
         ></input>
         <input type="submit" value="Tweet!"></input>
       </form>
+      <ul></ul>
     </div>
   );
 };
