@@ -1,4 +1,11 @@
-import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Navigation from "components/Navigation";
+import {
+  HashRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+} from "react-router-dom";
 import Auth from "routes/Auth";
 import EditProfile from "routes/EditProfile";
 import Home from "routes/Home";
@@ -8,6 +15,7 @@ const AppRoute = ({ loggedIn, setLoggedIn }) =>
   loggedIn ? (
     <>
       <Router>
+        <Navigation />
         <Switch>
           <Route path="/" exact>
             <Home />
