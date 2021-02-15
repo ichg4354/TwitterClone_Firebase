@@ -8,15 +8,13 @@ const Home = () => {
   const [tweets, setTweets] = useState([]);
 
   const onSubmit = async (event) => {
-    const form = document.getElementById("tweetInput");
-    let text = form.value;
     let DATE = Date.now();
     event.preventDefault();
     await dataService.collection("tweets").add({
-      tweet: tweet,
-      date: DATE,
+      text: tweet,
+      createdAt: DATE,
     });
-    paintTweets(text, DATE);
+    paintTweets(tweet, DATE);
     setTweet("");
   };
 
@@ -38,18 +36,23 @@ const Home = () => {
   };
 
   const getData = async () => {
-    let list = [];
     const data = await dataService
       .collection("tweets")
-      .orderBy("date", "desc")
+      .orderBy("createdAt", "desc")
       .get();
+
     data.forEach((each) => {
-      list.push({ id: each.data().date, text: each.data().tweet });
+      let tweetObj = {
+        ...each.data(),
+        id: each.id,
+        key: each.id,
+      };
+      console.log(tweetObj);
+      setTweets((prev) => [...prev, tweetObj]);
     });
-    setTweets(list);
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     getData();
   }, []);
 
@@ -67,7 +70,7 @@ const Home = () => {
         <input type="submit" value="Tweet!"></input>
       </form>
       <ul id="tweetContainer">
-        {tweets.map((each) => (
+        {tweets?.map((each) => (
           <li key={each.id}>
             <span>{each.text}</span>
           </li>
