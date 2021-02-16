@@ -1,20 +1,23 @@
 import Navigation from "components/Navigation";
 import { authService, dataService } from "fBase";
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import { useEffect, useState } from "react/cjs/react.development";
+import Tweets from "components/Tweets";
 
-const Home = () => {
+const Home = ({ userData }) => {
   const [tweet, setTweet] = useState("");
   const [tweets, setTweets] = useState([]);
-
+  const [loading, setLoading] = useState(true);
+  const [newTweet, setNewTweet] = useState("");
   const onSubmit = async (event) => {
-    let DATE = Date.now();
     event.preventDefault();
-    await dataService.collection("tweets").add({
-      text: tweet,
-      createdAt: DATE,
-    });
-    paintTweets(tweet, DATE);
+    if (tweet !== "") {
+      await dataService.collection("tweets").add({
+        text: tweet,
+        createdAt: Date.now(),
+        userId: userData.uid,
+      });
+    }
     setTweet("");
   };
 
@@ -25,38 +28,27 @@ const Home = () => {
     setTweet(value);
   };
 
-  const paintTweets = (text, id) => {
-    let tweetContainer = document.getElementById("tweetContainer");
-    let li = document.createElement("li");
-    let span = document.createElement("span");
-    li.id = id;
-    span.innerText = text;
-    li.appendChild(span);
-    tweetContainer.prepend(li);
-  };
-
   const getData = async () => {
-    const data = await dataService
+    dataService
       .collection("tweets")
       .orderBy("createdAt", "desc")
-      .get();
-
-    data.forEach((each) => {
-      let tweetObj = {
-        ...each.data(),
-        id: each.id,
-        key: each.id,
-      };
-      console.log(tweetObj);
-      setTweets((prev) => [...prev, tweetObj]);
-    });
+      .onSnapshot((snap) => {
+        let dataList = snap.docs.map((each) => ({
+          ...each.data(),
+          id: each.id,
+        }));
+        setTweets(dataList);
+      });
+    setLoading(false);
   };
 
   useEffect(() => {
     getData();
   }, []);
 
-  return (
+  return loading ? (
+    <h1>LOADING..</h1>
+  ) : (
     <div>
       <h1>HOME</h1>
       <form onSubmit={onSubmit}>
@@ -68,14 +60,10 @@ const Home = () => {
           id="tweetInput"
         ></input>
         <input type="submit" value="Tweet!"></input>
+        <div id="tweetContainer">
+          <Tweets tweets={tweets} />
+        </div>
       </form>
-      <ul id="tweetContainer">
-        {tweets?.map((each) => (
-          <li key={each.id}>
-            <span>{each.text}</span>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 };

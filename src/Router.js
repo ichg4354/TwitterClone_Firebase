@@ -11,14 +11,14 @@ import EditProfile from "routes/EditProfile";
 import Home from "routes/Home";
 import Profile from "routes/Profile";
 
-const AppRoute = ({ loggedIn, setLoggedIn }) =>
+const AppRoute = ({ loggedIn, userData }) =>
   loggedIn ? (
     <>
       <Router>
         <Navigation />
         <Switch>
           <Route path="/" exact>
-            <Home />
+            <Home userData={userData} />
           </Route>
           <Route path="/profile" exact>
             <Profile />
