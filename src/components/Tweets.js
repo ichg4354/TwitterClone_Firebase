@@ -4,8 +4,7 @@ import { useState } from "react/cjs/react.development";
 
 const Tweets = ({ tweetObj, isTweeter }) => {
   const [updateBtnClicked, setUpdateBtnClicked] = useState(false);
-  const [newTweet, setNewTweet] = useState("");
-  console.log(isTweeter);
+  const [newTweet, setNewTweet] = useState(tweetObj.text);
   const onClick = async (event) => {
     const {
       target: { name },
@@ -17,7 +16,6 @@ const Tweets = ({ tweetObj, isTweeter }) => {
       }
     } else if (name === "updateBtn") {
       setUpdateBtnClicked(true);
-      setNewTweet(tweetObj.text);
     } else if (name === "editInit") {
       await dataService
         .collection("tweets")
