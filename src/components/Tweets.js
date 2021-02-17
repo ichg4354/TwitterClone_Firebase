@@ -1,21 +1,34 @@
+import { dataService } from "fBase";
 import { useRef } from "react";
 import { useState } from "react/cjs/react.development";
 
 const Tweets = ({ tweets }) => {
   const [updateBtnClicked, setUpdateBtnClicked] = useState(false);
-  const [oldTweet, setOldTweet] = useState("");
-  const [newTweet, setNewTweet] = useState(oldTweet);
-  const onClick = (event, tweetObj) => {
+  const [newTweet, setNewTweet] = useState("");
+  const [userObj, setUserObj] = useState({});
+  const onClick = async (event, tweetObj) => {
     const {
       target: { name },
     } = event;
-    if (name === "delete") {
-    } else if (name === "update") {
+    if (name === "deleteBtn") {
+      console.log("delete");
+      await dataService.collection("tweets").doc(tweetObj.id).delete();
+    } else if (name === "updateBtn") {
+      console.log("update");
       setUpdateBtnClicked(true);
-      setOldTweet(tweetObj.text);
-      console.log(tweetObj.text);
-    } else {
+      setUserObj(tweetObj);
+      setNewTweet(tweetObj.text);
+    } else if (name === "editInit") {
+      console.log(userObj);
+      await dataService
+        .collection("tweets")
+        .doc(userObj.id)
+        .set({ text: newTweet }, { merge: true });
+      console.log("edit");
       setUpdateBtnClicked(false);
+    } else if (name === "cancelBtn") {
+      setUpdateBtnClicked(false);
+      console.log("cancel");
     }
   };
   const onChange = (e) => {
@@ -25,8 +38,13 @@ const Tweets = ({ tweets }) => {
   return updateBtnClicked ? (
     <div>
       <input type="text" value={newTweet} onChange={onChange}></input>
-      <input type="submit" value="Edit"></input>
-      <button name="cancel" onClick={onClick}>
+      <input
+        type="submit"
+        value="Edit"
+        name="editInit"
+        onClick={onClick}
+      ></input>
+      <button name="cancelBtn" onClick={onClick}>
         Cancel
       </button>
     </div>
@@ -35,10 +53,10 @@ const Tweets = ({ tweets }) => {
       <div key={each.id}>
         <h3>{each.text}</h3>
         <div>
-          <button name="delete" onClick={onClick}>
+          <button name="deleteBtn" onClick={(e) => onClick(e, each)}>
             Delete
           </button>
-          <button name="update" onClick={(e) => onClick(e, each)}>
+          <button name="updateBtn" onClick={(e) => onClick(e, each)}>
             Update
           </button>
         </div>
