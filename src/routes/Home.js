@@ -8,7 +8,6 @@ const Home = ({ userData }) => {
   const [tweet, setTweet] = useState("");
   const [tweets, setTweets] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [newTweet, setNewTweet] = useState("");
   const onSubmit = async (event) => {
     event.preventDefault();
     if (tweet !== "") {
@@ -61,7 +60,13 @@ const Home = ({ userData }) => {
         ></input>
         <input type="submit" value="Tweet!"></input>
         <div id="tweetContainer">
-          <Tweets tweets={tweets} />
+          {tweets.map((each) => (
+            <Tweets
+              tweetObj={each}
+              key={each.id}
+              isTweeter={userData.uid === each.userId}
+            />
+          ))}
         </div>
       </form>
     </div>

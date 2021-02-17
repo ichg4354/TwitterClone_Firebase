@@ -2,27 +2,26 @@ import { dataService } from "fBase";
 import { useRef } from "react";
 import { useState } from "react/cjs/react.development";
 
-const Tweets = ({ tweets }) => {
+const Tweets = ({ tweetObj, isTweeter }) => {
   const [updateBtnClicked, setUpdateBtnClicked] = useState(false);
   const [newTweet, setNewTweet] = useState("");
-  const [userObj, setUserObj] = useState({});
-  const onClick = async (event, tweetObj) => {
+  console.log(isTweeter);
+  const onClick = async (event) => {
     const {
       target: { name },
     } = event;
 
-    if (name === "deleteBtn") {
+    if (name === "deleteInit") {
       if (window.confirm("would you like to really delete?")) {
         await dataService.collection("tweets").doc(tweetObj.id).delete();
       }
     } else if (name === "updateBtn") {
       setUpdateBtnClicked(true);
-      setUserObj(tweetObj);
       setNewTweet(tweetObj.text);
     } else if (name === "editInit") {
       await dataService
         .collection("tweets")
-        .doc(userObj.id)
+        .doc(tweetObj.id)
         .set({ text: newTweet }, { merge: true });
       setUpdateBtnClicked(false);
     } else if (name === "cancelBtn") {
@@ -47,19 +46,21 @@ const Tweets = ({ tweets }) => {
       </button>
     </div>
   ) : (
-    tweets.map((each) => (
-      <div key={each.id}>
-        <h3>{each.text}</h3>
-        <div>
-          <button name="deleteBtn" onClick={(e) => onClick(e, each)}>
-            Delete
-          </button>
-          <button name="updateBtn" onClick={(e) => onClick(e, each)}>
-            Update
-          </button>
-        </div>
+    <div key={tweetObj.id}>
+      <h3>{tweetObj.text}</h3>
+      <div>
+        {isTweeter ? (
+          <>
+            <button name="deleteInit" onClick={onClick}>
+              Delete
+            </button>
+            <button name="updateBtn" onClick={onClick}>
+              Update
+            </button>
+          </>
+        ) : null}
       </div>
-    ))
+    </div>
   );
 };
 export default Tweets;
