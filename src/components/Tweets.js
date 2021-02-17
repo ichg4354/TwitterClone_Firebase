@@ -10,25 +10,23 @@ const Tweets = ({ tweets }) => {
     const {
       target: { name },
     } = event;
+
     if (name === "deleteBtn") {
-      console.log("delete");
-      await dataService.collection("tweets").doc(tweetObj.id).delete();
+      if (window.confirm("would you like to really delete?")) {
+        await dataService.collection("tweets").doc(tweetObj.id).delete();
+      }
     } else if (name === "updateBtn") {
-      console.log("update");
       setUpdateBtnClicked(true);
       setUserObj(tweetObj);
       setNewTweet(tweetObj.text);
     } else if (name === "editInit") {
-      console.log(userObj);
       await dataService
         .collection("tweets")
         .doc(userObj.id)
         .set({ text: newTweet }, { merge: true });
-      console.log("edit");
       setUpdateBtnClicked(false);
     } else if (name === "cancelBtn") {
       setUpdateBtnClicked(false);
-      console.log("cancel");
     }
   };
   const onChange = (e) => {
