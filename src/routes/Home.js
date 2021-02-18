@@ -1,5 +1,5 @@
 import Navigation from "components/Navigation";
-import { authService, dataService } from "fBase";
+import { authService, dataService, storageService } from "fBase";
 import React, { useLayoutEffect, useRef } from "react";
 import { useEffect, useState } from "react/cjs/react.development";
 import Tweets from "components/Tweets";
@@ -8,6 +8,8 @@ const Home = ({ userData }) => {
   const [tweet, setTweet] = useState("");
   const [tweets, setTweets] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [imageFile, setImageFile] = useState({});
+
   const onSubmit = async (event) => {
     event.preventDefault();
     if (tweet !== "") {
@@ -17,6 +19,7 @@ const Home = ({ userData }) => {
         userId: userData.uid,
       });
     }
+    await storageService.child("/image").put(imageFile);
     setTweet("");
   };
 
@@ -41,6 +44,15 @@ const Home = ({ userData }) => {
     setLoading(false);
   };
 
+  const onFileSubmit = (event) => {
+    console.log(event);
+    let {
+      target: { files },
+    } = event;
+    setImageFile({ files });
+    console.log(files.item(0));
+  };
+
   useEffect(() => {
     getData();
   }, []);
@@ -59,6 +71,7 @@ const Home = ({ userData }) => {
           id="tweetInput"
         ></input>
         <input type="submit" value="Tweet!"></input>
+        <input type="file" accept="image/*" onChange={onFileSubmit} />
         <div id="tweetContainer">
           {tweets.map((each) => (
             <Tweets

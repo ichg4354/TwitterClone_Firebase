@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
-import { authService } from "fBase";
+import { authService, storageService } from "fBase";
 import AppRoute from "Router";
 
 function App() {
+  const getStorage = async () => {
+    let data = await storageService.list();
+    console.log(data.items);
+  };
+  getStorage();
+
   const [loggedIn, setLoggedIn] = useState(false);
   const [init, setInit] = useState(false);
   const [userData, setUserData] = useState(null);

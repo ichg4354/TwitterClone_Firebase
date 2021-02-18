@@ -1,5 +1,4 @@
 import { dataService } from "fBase";
-import { useRef } from "react";
 import { useState } from "react/cjs/react.development";
 
 const Tweets = ({ tweetObj, isTweeter }) => {
