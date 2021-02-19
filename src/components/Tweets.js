@@ -1,14 +1,18 @@
 import { dataService, storageService } from "fBase";
 import { useState } from "react/cjs/react.development";
 
+const LOADINGIMAGE =
+  "https://cdn4.iconfinder.com/data/icons/pictype-free-vector-icons/16/spinner-512.png";
+
 const Tweets = ({ tweetObj, isTweeter, imagePath }) => {
   const [updateBtnClicked, setUpdateBtnClicked] = useState(false);
   const [newTweet, setNewTweet] = useState(tweetObj.text);
-  const [imageLink, setImageLink] = useState("");
+  const [imageLink, setImageLink] = useState(LOADINGIMAGE);
+
+  let IMAGE_REF = storageService.ref().child(imagePath);
 
   const getImage = async () => {
-    let imageRef = storageService.ref().child(imagePath);
-    let link = await imageRef.getDownloadURL();
+    let link = await IMAGE_REF.getDownloadURL();
     setImageLink(link);
   };
 
@@ -21,6 +25,7 @@ const Tweets = ({ tweetObj, isTweeter, imagePath }) => {
     if (name === "deleteInit") {
       if (window.confirm("would you like to really delete?")) {
         await dataService.collection("tweets").doc(tweetObj.id).delete();
+        await IMAGE_REF.delete();
       }
     } else if (name === "updateBtn") {
       setUpdateBtnClicked(true);
