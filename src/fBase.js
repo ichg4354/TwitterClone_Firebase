@@ -20,4 +20,4 @@ export const authService = firebase.auth();
 
 export const dataService = firebase.firestore();
 
-export const storageService = firebase.storage().ref();
+export const storageService = firebase.storage();

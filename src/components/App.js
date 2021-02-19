@@ -3,11 +3,6 @@ import { authService, storageService } from "fBase";
 import AppRoute from "Router";
 
 function App() {
-  // const getStorage = async () => {
-  //   let data = await storageService.
-  //   console.log(data.items);
-  // };
-  // getStorage();
 
   const [loggedIn, setLoggedIn] = useState(false);
   const [init, setInit] = useState(false);

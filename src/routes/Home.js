@@ -20,12 +20,13 @@ const Home = ({ userData }) => {
         imagePath: `images/${userData.uid}/${imageFile.lastModified}`,
       });
     }
-    setTweet("");
     if (imageFile) {
       await storageService
+        .ref()
         .child(`images/${userData.uid}/${imageFile.lastModified}`)
         .put(imageFile);
     }
+    setTweet("");
     imageInput.value = "";
     setImageFile("");
   };

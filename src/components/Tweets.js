@@ -1,10 +1,19 @@
-import { dataService } from "fBase";
+import { dataService, storageService } from "fBase";
 import { useState } from "react/cjs/react.development";
 
 const Tweets = ({ tweetObj, isTweeter, imagePath }) => {
   const [updateBtnClicked, setUpdateBtnClicked] = useState(false);
   const [newTweet, setNewTweet] = useState(tweetObj.text);
-  
+  const [imageLink, setImageLink] = useState("");
+
+  const getImage = async () => {
+    let imageRef = storageService.ref().child(imagePath);
+    let link = await imageRef.getDownloadURL();
+    setImageLink(link);
+  };
+
+  getImage();
+
   const onClick = async (event) => {
     const {
       target: { name },
@@ -31,6 +40,10 @@ const Tweets = ({ tweetObj, isTweeter, imagePath }) => {
 
   return updateBtnClicked ? (
     <div>
+      <img
+        src={imageLink}
+        style={{ width: 50, height: 50, borderRadius: 25 }}
+      />
       <input type="text" value={newTweet} onChange={onChange}></input>
       <input
         type="submit"
@@ -44,6 +57,10 @@ const Tweets = ({ tweetObj, isTweeter, imagePath }) => {
     </div>
   ) : (
     <div key={tweetObj.id}>
+      <img
+        src={imageLink}
+        style={{ width: 50, height: 50, borderRadius: 25 }}
+      />
       <h3>{tweetObj.text}</h3>
       <div>
         {isTweeter ? (
