@@ -1,14 +1,14 @@
 import { dataService } from "fBase";
 import { useState } from "react/cjs/react.development";
 
-const Tweets = ({ tweetObj, isTweeter }) => {
+const Tweets = ({ tweetObj, isTweeter, imagePath }) => {
   const [updateBtnClicked, setUpdateBtnClicked] = useState(false);
   const [newTweet, setNewTweet] = useState(tweetObj.text);
+  
   const onClick = async (event) => {
     const {
       target: { name },
     } = event;
-
     if (name === "deleteInit") {
       if (window.confirm("would you like to really delete?")) {
         await dataService.collection("tweets").doc(tweetObj.id).delete();

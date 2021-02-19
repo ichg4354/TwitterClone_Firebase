@@ -8,8 +8,8 @@ const Home = ({ userData }) => {
   const [tweet, setTweet] = useState("");
   const [tweets, setTweets] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [imageFile, setImageFile] = useState({});
-
+  const [imageFile, setImageFile] = useState("");
+  const imageInput = document.getElementById("imageInput");
   const onSubmit = async (event) => {
     event.preventDefault();
     if (tweet !== "") {
@@ -17,10 +17,17 @@ const Home = ({ userData }) => {
         text: tweet,
         createdAt: Date.now(),
         userId: userData.uid,
+        imagePath: `images/${userData.uid}/${imageFile.lastModified}`,
       });
     }
-    await storageService.child("/image").put(imageFile);
     setTweet("");
+    if (imageFile) {
+      await storageService
+        .child(`images/${userData.uid}/${imageFile.lastModified}`)
+        .put(imageFile);
+    }
+    imageInput.value = "";
+    setImageFile("");
   };
 
   const onChange = (event) => {
@@ -45,12 +52,10 @@ const Home = ({ userData }) => {
   };
 
   const onFileSubmit = (event) => {
-    console.log(event);
     let {
       target: { files },
     } = event;
-    setImageFile({ files });
-    console.log(files.item(0));
+    setImageFile(files[0]);
   };
 
   useEffect(() => {
@@ -63,6 +68,12 @@ const Home = ({ userData }) => {
     <div>
       <h1>HOME</h1>
       <form onSubmit={onSubmit}>
+        {imageFile ? (
+          <img
+            src={URL.createObjectURL(imageFile)}
+            style={{ width: 50, height: 50 }}
+          ></img>
+        ) : null}
         <input
           onChange={onChange}
           value={tweet}
@@ -71,13 +82,19 @@ const Home = ({ userData }) => {
           id="tweetInput"
         ></input>
         <input type="submit" value="Tweet!"></input>
-        <input type="file" accept="image/*" onChange={onFileSubmit} />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={onFileSubmit}
+          id="imageInput"
+        />
         <div id="tweetContainer">
           {tweets.map((each) => (
             <Tweets
               tweetObj={each}
               key={each.id}
               isTweeter={userData.uid === each.userId}
+              imagePath={each.imagePath}
             />
           ))}
         </div>
