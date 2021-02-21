@@ -5,6 +5,7 @@ import { useState } from "react/cjs/react.development";
 
 const Profile = ({ userData, setNickNameG }) => {
   const [userName, setUsername] = useState(userData.displayName);
+  const [updateProfileState, setUpdateProfileState] = useState(false);
 
   let history = useHistory();
   const onLogOutClick = async () => {
@@ -31,12 +32,26 @@ const Profile = ({ userData, setNickNameG }) => {
     setUsername(value);
   };
 
+  const onUpdateProfileBtnClick = () => {
+    setUpdateProfileState((prev) => !prev);
+  };
+
+  const onBackBtnClick = () => {
+    setUpdateProfileState((prev) => !prev);
+  };
+
   return (
     <>
-      <form onSubmit={onSubmit}>
-        <input type="text" onChange={onChange} value={userName}></input>
-        <input type="submit" value="Update Profile"></input>
-      </form>
+      {updateProfileState ? (
+        <form onSubmit={onSubmit}>
+          <input type="text" onChange={onChange} value={userName}></input>
+          <input type="submit" value="Update Profile"></input>
+          <button onClick={onBackBtnClick}>Back</button>
+        </form>
+      ) : (
+        <button onClick={onUpdateProfileBtnClick}>Update Profile</button>
+      )}
+
       <button onClick={onLogOutClick}>Log Out</button>
     </>
   );
