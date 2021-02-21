@@ -15,6 +15,8 @@ const Profile = ({ userData, setNickNameG }) => {
     history.push("/");
   };
 
+  console.log(userData);
+
   const onSubmit = async (event) => {
     event.preventDefault();
     await userData.updateProfile({
@@ -70,8 +72,14 @@ const Profile = ({ userData, setNickNameG }) => {
       ) : (
         <button onClick={onUpdateProfileBtnClick}>Update Profile</button>
       )}
-      {/* set the img src to real http link */}
-      {userTweets.map((each) => console.log(each))}
+      {userTweets.map((each) => (
+        <Tweets
+          key={each.userId}
+          tweetObj={each}
+          isTweeter={true}
+          imagePath={each.imagePath}
+        />
+      ))}
       <button onClick={onLogOutClick}>Log Out</button>
     </>
   );
