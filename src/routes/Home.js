@@ -59,6 +59,9 @@ const Home = ({ userData }) => {
     setImageFile(files[0]);
   };
 
+  const onClearBtnClick = () => {
+    setImageFile(null);
+  };
   useEffect(() => {
     getData();
   }, []);
@@ -75,6 +78,7 @@ const Home = ({ userData }) => {
             style={{ width: 50, height: 50 }}
           ></img>
         ) : null}
+        <button onClick={onClearBtnClick}>Clear</button>
         <input
           onChange={onChange}
           value={tweet}
