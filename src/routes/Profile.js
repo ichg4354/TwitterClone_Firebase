@@ -1,11 +1,13 @@
-import { authService } from "fBase";
+import Tweets from "components/Tweets";
+import { authService, dataService } from "fBase";
 import React from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { useState } from "react/cjs/react.development";
+import { useEffect, useState } from "react/cjs/react.development";
 
 const Profile = ({ userData, setNickNameG }) => {
   const [userName, setUsername] = useState(userData.displayName);
   const [updateProfileState, setUpdateProfileState] = useState(false);
+  const [userTweets, setUserTweets] = useState([]);
 
   let history = useHistory();
   const onLogOutClick = async () => {
@@ -20,6 +22,7 @@ const Profile = ({ userData, setNickNameG }) => {
     });
     try {
       setNickNameG(userName);
+      setUpdateProfileState(false);
     } catch (error) {
       console.log(error);
     }
@@ -40,6 +43,22 @@ const Profile = ({ userData, setNickNameG }) => {
     setUpdateProfileState((prev) => !prev);
   };
 
+  const getUserTweets = async () => {
+    let tweetList = [];
+
+    const result = await dataService
+      .collection("tweets")
+      .where("userId", "==", userData.uid)
+      .get();
+    result.docs.forEach((each) => tweetList.push(each.data()));
+    console.log(tweetList);
+    setUserTweets(tweetList);
+  };
+
+  useEffect(() => {
+    getUserTweets();
+  }, []);
+
   return (
     <>
       {updateProfileState ? (
@@ -51,7 +70,8 @@ const Profile = ({ userData, setNickNameG }) => {
       ) : (
         <button onClick={onUpdateProfileBtnClick}>Update Profile</button>
       )}
-
+      {/* set the img src to real http link */}
+      {userTweets.map((each) => console.log(each))}
       <button onClick={onLogOutClick}>Log Out</button>
     </>
   );
