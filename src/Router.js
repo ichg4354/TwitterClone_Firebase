@@ -12,7 +12,7 @@ import Home from "routes/Home";
 import Profile from "routes/Profile";
 
 const AppRoute = ({ loggedIn, userData }) => {
-  const [nickNameG, setNickNameG] = useState(userData.displayName);
+  const [nickNameG, setNickNameG] = useState(userData.displayName || "Unknown");
   return loggedIn ? (
     <>
       <Router>
@@ -22,7 +22,11 @@ const AppRoute = ({ loggedIn, userData }) => {
             <Home userData={userData} />
           </Route>
           <Route path="/profile" exact>
-            <Profile userData={userData} setNickNameG={setNickNameG} />
+            <Profile
+              userData={userData}
+              setNickNameG={setNickNameG}
+              nickNameG={nickNameG}
+            />
           </Route>
         </Switch>
       </Router>

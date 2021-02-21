@@ -4,8 +4,8 @@ import React from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect, useState } from "react/cjs/react.development";
 
-const Profile = ({ userData, setNickNameG }) => {
-  const [userName, setUsername] = useState(userData.displayName);
+const Profile = ({ userData, setNickNameG, nickNameG }) => {
+  const [userName, setUsername] = useState(nickNameG);
   const [updateProfileState, setUpdateProfileState] = useState(false);
   const [userTweets, setUserTweets] = useState([]);
 
@@ -70,17 +70,19 @@ const Profile = ({ userData, setNickNameG }) => {
           <button onClick={onBackBtnClick}>Back</button>
         </form>
       ) : (
-        <button onClick={onUpdateProfileBtnClick}>Update Profile</button>
+        <>
+          <button onClick={onUpdateProfileBtnClick}>Update Profile</button>
+          {userTweets.map((each) => (
+            <Tweets
+              key={each.userId}
+              tweetObj={each}
+              isTweeter={true}
+              imagePath={each.imagePath}
+            />
+          ))}
+          <button onClick={onLogOutClick}>Log Out</button>
+        </>
       )}
-      {userTweets.map((each) => (
-        <Tweets
-          key={each.userId}
-          tweetObj={each}
-          isTweeter={true}
-          imagePath={each.imagePath}
-        />
-      ))}
-      <button onClick={onLogOutClick}>Log Out</button>
     </>
   );
 };
