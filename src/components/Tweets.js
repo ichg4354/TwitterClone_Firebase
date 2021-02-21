@@ -1,8 +1,8 @@
 import { dataService, storageService } from "fBase";
-import { useState } from "react/cjs/react.development";
+import { useEffect, useState } from "react/cjs/react.development";
 
 const LOADINGIMAGE =
-  "https://cdn4.iconfinder.com/data/icons/pictype-free-vector-icons/16/spinner-512.png";
+  "https://media1.tenor.com/images/2d135229987db0745acfc8a277263784/tenor.gif?itemid=12556485";
 
 const Tweets = ({ tweetObj, isTweeter, imagePath }) => {
   const [updateBtnClicked, setUpdateBtnClicked] = useState(false);
@@ -15,8 +15,6 @@ const Tweets = ({ tweetObj, isTweeter, imagePath }) => {
     let link = await IMAGE_REF?.getDownloadURL();
     setImageLink(link);
   };
-
-  getImage();
 
   const onClick = async (event) => {
     const {
@@ -39,9 +37,14 @@ const Tweets = ({ tweetObj, isTweeter, imagePath }) => {
       setUpdateBtnClicked(false);
     }
   };
+
   const onChange = (e) => {
     setNewTweet(e.target.value);
   };
+
+  useEffect(() => {
+    getImage();
+  }, []);
 
   return updateBtnClicked ? (
     <div>
