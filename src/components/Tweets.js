@@ -12,7 +12,7 @@ const Tweets = ({ tweetObj, isTweeter, imagePath }) => {
   let IMAGE_REF = storageService.ref().child(imagePath);
 
   const getImage = async () => {
-    let link = await IMAGE_REF.getDownloadURL();
+    let link = await IMAGE_REF?.getDownloadURL();
     setImageLink(link);
   };
 

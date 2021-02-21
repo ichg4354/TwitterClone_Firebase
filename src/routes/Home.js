@@ -9,22 +9,24 @@ const Home = ({ userData }) => {
   const [tweets, setTweets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [imageFile, setImageFile] = useState("");
+
   const imageInput = document.getElementById("imageInput");
+
   const onSubmit = async (event) => {
     event.preventDefault();
+    if (imageFile) {
+      await storageService
+        .ref()
+        .child(`images/${userData.uid}/${imageFile?.lastModified}`)
+        .put(imageFile); 
+    }
     if (tweet !== "") {
       await dataService.collection("tweets").add({
         text: tweet,
         createdAt: Date.now(),
         userId: userData.uid,
-        imagePath: `images/${userData.uid}/${imageFile.lastModified}`,
+        imagePath: `images/${userData.uid}/${imageFile?.lastModified}`,
       });
-    }
-    if (imageFile) {
-      await storageService
-        .ref()
-        .child(`images/${userData.uid}/${imageFile.lastModified}`)
-        .put(imageFile);
     }
     setTweet("");
     imageInput.value = "";
@@ -71,14 +73,14 @@ const Home = ({ userData }) => {
   ) : (
     <div>
       <h1>HOME</h1>
+      {imageFile ? (
+        <img
+          src={URL.createObjectURL(imageFile)}
+          style={{ width: 50, height: 50 }}
+        ></img>
+      ) : null}
+      <button onClick={onClearBtnClick}>Clear</button>
       <form onSubmit={onSubmit}>
-        {imageFile ? (
-          <img
-            src={URL.createObjectURL(imageFile)}
-            style={{ width: 50, height: 50 }}
-          ></img>
-        ) : null}
-        <button onClick={onClearBtnClick}>Clear</button>
         <input
           onChange={onChange}
           value={tweet}
