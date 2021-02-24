@@ -12,8 +12,13 @@ const Tweets = ({ tweetObj, isTweeter, imagePath }) => {
   let IMAGE_REF = storageService.ref().child(imagePath);
 
   const getImage = async () => {
-    let link = await IMAGE_REF?.getDownloadURL();
-    setImageLink(link);
+    if (imagePath) {
+      let link = await IMAGE_REF?.getDownloadURL();
+      console.log(imagePath);
+      setImageLink(link);
+    } else {
+      setImageLink(null);
+    }
   };
 
   const onClick = async (event) => {
@@ -23,7 +28,9 @@ const Tweets = ({ tweetObj, isTweeter, imagePath }) => {
     if (name === "deleteInit") {
       if (window.confirm("would you like to really delete?")) {
         await dataService.collection("tweets").doc(tweetObj.id).delete();
-        await IMAGE_REF.delete();
+        if (imagePath) {
+          await IMAGE_REF.delete();
+        }
       }
     } else if (name === "updateBtn") {
       setUpdateBtnClicked(true);
@@ -48,10 +55,14 @@ const Tweets = ({ tweetObj, isTweeter, imagePath }) => {
 
   return updateBtnClicked ? (
     <div>
-      <img
-        src={imageLink}
-        style={{ width: 50, height: 50, borderRadius: 25 }}
-      />
+      {imagePath ? (
+        <img
+          src={imageLink}
+          style={{ width: 50, height: 50, borderRadius: 25 }}
+        />
+      ) : (
+        <></>
+      )}
       <input type="text" value={newTweet} onChange={onChange}></input>
       <input
         type="submit"
@@ -65,10 +76,14 @@ const Tweets = ({ tweetObj, isTweeter, imagePath }) => {
     </div>
   ) : (
     <div key={tweetObj.id}>
-      <img
-        src={imageLink}
-        style={{ width: 50, height: 50, borderRadius: 25 }}
-      />
+      {imagePath ? (
+        <img
+          src={imageLink}
+          style={{ width: 50, height: 50, borderRadius: 25 }}
+        />
+      ) : (
+        <></>
+      )}
       <h3>{tweetObj.text}</h3>
       <div>
         {isTweeter ? (

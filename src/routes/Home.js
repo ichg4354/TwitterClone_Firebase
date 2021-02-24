@@ -18,14 +18,16 @@ const Home = ({ userData }) => {
       await storageService
         .ref()
         .child(`images/${userData.uid}/${imageFile?.lastModified}`)
-        .put(imageFile); 
+        .put(imageFile);
     }
     if (tweet !== "") {
       await dataService.collection("tweets").add({
         text: tweet,
         createdAt: Date.now(),
         userId: userData.uid,
-        imagePath: `images/${userData.uid}/${imageFile?.lastModified}`,
+        imagePath: imageFile
+          ? `images/${userData.uid}/${imageFile?.lastModified}`
+          : "",
       });
     }
     setTweet("");
@@ -101,7 +103,7 @@ const Home = ({ userData }) => {
               tweetObj={each}
               key={each.id}
               isTweeter={userData.uid === each.userId}
-              imagePath={each.imagePath}
+              imagePath={each.imagePath || ""}
             />
           ))}
         </div>

@@ -20,7 +20,11 @@ function App() {
   return (
     <>
       {init ? (
-        <AppRoute loggedIn={loggedIn} userData={userData} />
+        <AppRoute
+          loggedIn={loggedIn}
+          userData={userData}
+          setUserData={setUserData}
+        />
       ) : (
         <h1>LOADING...</h1>
       )}

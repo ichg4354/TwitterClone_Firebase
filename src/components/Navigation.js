@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-const Navigation = ({ userData, nickNameG }) => {
+const Navigation = ({ userData }) => {
   return (
     <nav>
       <ul>
@@ -9,7 +9,7 @@ const Navigation = ({ userData, nickNameG }) => {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/Profile">{nickNameG}의 Profile</Link>
+          <Link to="/Profile">{userData.displayName}의 Profile</Link>
         </li>
       </ul>
     </nav>

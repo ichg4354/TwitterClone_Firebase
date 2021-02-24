@@ -4,10 +4,10 @@ import React from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect, useState } from "react/cjs/react.development";
 
-const Profile = ({ userData, setNickNameG, nickNameG }) => {
-  const [userName, setUsername] = useState(nickNameG);
+const Profile = ({ userData, setUserData }) => {
   const [updateProfileState, setUpdateProfileState] = useState(false);
   const [userTweets, setUserTweets] = useState([]);
+  const [newUserName, setNewUserName] = useState(userData.displayName);
 
   let history = useHistory();
   const onLogOutClick = async () => {
@@ -15,16 +15,14 @@ const Profile = ({ userData, setNickNameG, nickNameG }) => {
     history.push("/");
   };
 
-  console.log(userData);
-
   const onSubmit = async (event) => {
     event.preventDefault();
     await userData.updateProfile({
-      displayName: userName,
+      displayName: newUserName,
     });
     try {
-      setNickNameG(userName);
       setUpdateProfileState(false);
+      setNewUserName(newUserName);
     } catch (error) {
       console.log(error);
     }
@@ -34,7 +32,7 @@ const Profile = ({ userData, setNickNameG, nickNameG }) => {
     const {
       target: { value },
     } = event;
-    setUsername(value);
+    setNewUserName(value);
   };
 
   const onUpdateProfileBtnClick = () => {
@@ -53,7 +51,6 @@ const Profile = ({ userData, setNickNameG, nickNameG }) => {
       .where("userId", "==", userData.uid)
       .get();
     result.docs.forEach((each) => tweetList.push(each.data()));
-    console.log(tweetList);
     setUserTweets(tweetList);
   };
 
@@ -65,7 +62,7 @@ const Profile = ({ userData, setNickNameG, nickNameG }) => {
     <>
       {updateProfileState ? (
         <form onSubmit={onSubmit}>
-          <input type="text" onChange={onChange} value={userName}></input>
+          <input type="text" onChange={onChange} value={newUserName}></input>
           <input type="submit" value="Update Profile"></input>
           <button onClick={onBackBtnClick}>Back</button>
         </form>
