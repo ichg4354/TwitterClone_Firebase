@@ -21,28 +21,28 @@ const Tweets = ({ tweetObj, isTweeter, imagePath }) => {
     }
   };
 
-  const onClick = async (event) => {
-    const {
-      target: { name },
-    } = event;
-    if (name === "deleteInit") {
-      if (window.confirm("would you like to really delete?")) {
-        await dataService.collection("tweets").doc(tweetObj.id).delete();
-        if (imagePath) {
-          await IMAGE_REF.delete();
-        }
+  const onDeleteBtnClick = async () => {
+    if (window.confirm("would you like to really delete?")) {
+      await dataService.collection("tweets").doc(tweetObj.id).delete();
+      if (imagePath) {
+        await IMAGE_REF.delete();
       }
-    } else if (name === "updateBtn") {
-      setUpdateBtnClicked(true);
-    } else if (name === "editInit") {
-      await dataService
-        .collection("tweets")
-        .doc(tweetObj.id)
-        .set({ text: newTweet }, { merge: true });
-      setUpdateBtnClicked(false);
-    } else if (name === "cancelBtn") {
-      setUpdateBtnClicked(false);
     }
+  };
+  const onUpdateBtnClick = () => {
+    setUpdateBtnClicked(true);
+  };
+  const onEditInitBtnClick = async () => {
+    await dataService
+      .collection("tweets")
+      .doc(tweetObj.id)
+      .set({ text: newTweet }, { merge: true });
+
+    setUpdateBtnClicked(false);
+  };
+
+  const onCancelBtnClick = () => {
+    setUpdateBtnClicked(false);
   };
 
   const onChange = (e) => {
@@ -68,9 +68,9 @@ const Tweets = ({ tweetObj, isTweeter, imagePath }) => {
         type="submit"
         value="Edit"
         name="editInit"
-        onClick={onClick}
+        onClick={onEditInitBtnClick}
       ></input>
-      <button name="cancelBtn" onClick={onClick}>
+      <button name="cancelBtn" onClick={onCancelBtnClick}>
         Cancel
       </button>
     </div>
@@ -88,10 +88,10 @@ const Tweets = ({ tweetObj, isTweeter, imagePath }) => {
       <div>
         {isTweeter ? (
           <>
-            <button name="deleteInit" onClick={onClick}>
+            <button name="deleteInit" onClick={onDeleteBtnClick}>
               Delete
             </button>
-            <button name="updateBtn" onClick={onClick}>
+            <button name="updateBtn" onClick={onUpdateBtnClick}>
               Update
             </button>
           </>
