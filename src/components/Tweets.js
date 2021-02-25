@@ -22,6 +22,7 @@ const Tweets = ({ tweetObj, isTweeter, imagePath }) => {
   };
 
   const onDeleteBtnClick = async () => {
+    console.log(tweetObj.id);
     if (window.confirm("would you like to really delete?")) {
       await dataService.collection("tweets").doc(tweetObj.id).delete();
       if (imagePath) {

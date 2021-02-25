@@ -16,7 +16,6 @@ import Home from "routes/Home";
 import Profile from "routes/Profile";
 
 const AppRoute = ({ loggedIn, userData, setUserData }) => {
-  setInterval(() => console.log(userData?.displayName), 3000);
   return loggedIn ? (
     <>
       <Router>

@@ -103,7 +103,7 @@ const Home = ({ userData }) => {
               tweetObj={each}
               key={each.id}
               isTweeter={userData.uid === each.userId}
-              imagePath={each.imagePath || ""}
+              imagePath={each.imagePath}
             />
           ))}
         </div>

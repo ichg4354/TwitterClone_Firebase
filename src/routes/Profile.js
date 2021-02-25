@@ -14,12 +14,14 @@ const Profile = ({ userData, setUserData }) => {
     await authService.signOut();
     history.push("/");
   };
-
   const onSubmit = async (event) => {
     event.preventDefault();
-    await userData.updateProfile({
-      displayName: newUserName,
-    });
+    if (userData.displayName !== newUserName) {
+      await userData.updateProfile({
+        displayName: newUserName,
+        uid: userData.uid,
+      });
+    }
     try {
       setUpdateProfileState(false);
       setNewUserName(newUserName);
@@ -45,14 +47,17 @@ const Profile = ({ userData, setUserData }) => {
   };
 
   const getUserTweets = async () => {
-    let tweetList = [];
-
-    const result = await dataService
+    dataService
       .collection("tweets")
       .where("userId", "==", userData.uid)
-      .get();
-    result.docs.forEach((each) => tweetList.push(each.data()));
-    setUserTweets(tweetList);
+      .orderBy("createdAt", "desc")
+      .onSnapshot((snap) => {
+        let dataList = snap.docs.map((each) => ({
+          ...each.data(),
+          id: each.id,
+        }));
+        setUserTweets(dataList);
+      });
   };
 
   useEffect(() => {
@@ -72,7 +77,7 @@ const Profile = ({ userData, setUserData }) => {
           <button onClick={onUpdateProfileBtnClick}>Update Profile</button>
           {userTweets.map((each) => (
             <Tweets
-              key={each.userId}
+              key={each.createdAt}
               tweetObj={each}
               isTweeter={true}
               imagePath={each.imagePath}
