@@ -20,12 +20,17 @@ const Profile = ({ userData, setUserData }) => {
       await userData.updateProfile({
         displayName: newUserName,
         uid: userData.uid,
+        updateProfile: (value) => userData.updateProfile(value),
       });
     }
     try {
       setUpdateProfileState(false);
       setNewUserName(newUserName);
-      setUserData({ displayName: newUserName });
+      setUserData({
+        displayName: newUserName,
+        uid: userData.uid,
+        updateProfile: (value) => userData.updateProfile(value),
+      });
     } catch (error) {
       console.log(error);
     }
