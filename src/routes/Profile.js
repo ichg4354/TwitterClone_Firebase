@@ -23,6 +23,7 @@ const Profile = ({ userData, setUserData }) => {
     try {
       setUpdateProfileState(false);
       setNewUserName(newUserName);
+      setUserData({ displayName: newUserName });
     } catch (error) {
       console.log(error);
     }

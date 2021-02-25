@@ -5,7 +5,7 @@ import AppRoute from "Router";
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [init, setInit] = useState(false);
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState();
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
