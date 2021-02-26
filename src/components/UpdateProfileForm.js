@@ -7,6 +7,7 @@ const UpdateProfileFrom = ({
   setUpdateProfileState,
 }) => {
   const [newUserName, setNewUserName] = useState(userData.displayName);
+
   const onSubmit = async (event) => {
     event.preventDefault();
     if (userData.displayName !== newUserName) {
@@ -28,15 +29,18 @@ const UpdateProfileFrom = ({
       console.log(error);
     }
   };
+
   const onBackBtnClick = () => {
     setUpdateProfileState((prev) => !prev);
   };
+
   const onChange = (event) => {
     const {
       target: { value },
     } = event;
     setNewUserName(value);
   };
+
   return (
     <form onSubmit={onSubmit}>
       <input type="text" onChange={onChange} value={newUserName}></input>

@@ -8,8 +8,8 @@ import { useEffect, useState } from "react/cjs/react.development";
 const Profile = ({ userData, setUserData }) => {
   const [updateProfileState, setUpdateProfileState] = useState(true);
   const [userTweets, setUserTweets] = useState([]);
-
   let history = useHistory();
+
   const onLogOutClick = async () => {
     await authService.signOut();
     history.push("/");
