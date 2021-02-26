@@ -2,6 +2,28 @@ import { authService } from "fBase";
 import React from "react";
 import firebase from "firebase/app";
 import AuthForm from "components/AuthForm";
+import styled from "styled-components";
+import { ImTwitter } from "react-icons/im";
+
+const AuthContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+  background-color: black;
+`;
+
+const IconContainer = styled.div`
+  margin-bottom: 30px;
+`;
+
+const SocialLoginContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const SocialLoginBtn = styled.button``;
 
 const Auth = () => {
   const onSocialClick = async (event) => {
@@ -22,17 +44,20 @@ const Auth = () => {
     }
   };
   return (
-    <div>
+    <AuthContainer>
+      <IconContainer>
+        <ImTwitter style={{ color: "#1DA1F2", width: 60, height: 60 }} />
+      </IconContainer>
       <AuthForm />
-      <div>
-        <button onClick={onSocialClick} name="google">
+      <SocialLoginContainer>
+        <SocialLoginBtn onClick={onSocialClick} name="google">
           Sign in with Google
-        </button>
-        <button onClick={onSocialClick} name="github">
+        </SocialLoginBtn>
+        <SocialLoginBtn onClick={onSocialClick} name="github">
           Sign in with Github
-        </button>
-      </div>
-    </div>
+        </SocialLoginBtn>
+      </SocialLoginContainer>
+    </AuthContainer>
   );
 };
 
