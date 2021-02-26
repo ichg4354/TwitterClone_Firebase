@@ -1,6 +1,6 @@
+import TweetContainer from "components/TweetContainer";
 import React from "react";
 import { useState } from "react/cjs/react.development";
-import CreateTweetForm from "components/CreateTweetForm";
 
 const Home = ({ userData }) => {
   const [imageFile, setImageFile] = useState("");
@@ -14,7 +14,7 @@ const Home = ({ userData }) => {
           style={{ width: 50, height: 50 }}
         ></img>
       ) : null}
-      <CreateTweetForm
+      <TweetContainer
         userData={userData}
         setImageFile={setImageFile}
         imageFile={imageFile}

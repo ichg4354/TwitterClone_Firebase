@@ -3,7 +3,7 @@ import React from "react";
 import { useEffect, useState } from "react/cjs/react.development";
 import Tweets from "./Tweets";
 
-const CreateTweetForm = ({ userData, setImageFile, imageFile }) => {
+const TweetContainer = ({ userData, setImageFile, imageFile }) => {
   const [tweet, setTweet] = useState("");
   const [tweets, setTweets] = useState([]);
 
@@ -99,4 +99,4 @@ const CreateTweetForm = ({ userData, setImageFile, imageFile }) => {
   );
 };
 
-export default CreateTweetForm;
+export default TweetContainer;
