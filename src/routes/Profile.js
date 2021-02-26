@@ -1,11 +1,12 @@
 import Tweets from "components/Tweets";
+import UpdateProfileFrom from "components/UpdateProfileForm";
 import { authService, dataService } from "fBase";
 import React from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect, useState } from "react/cjs/react.development";
 
 const Profile = ({ userData, setUserData }) => {
-  const [updateProfileState, setUpdateProfileState] = useState(false);
+  const [updateProfileState, setUpdateProfileState] = useState(true);
   const [userTweets, setUserTweets] = useState([]);
   const [newUserName, setNewUserName] = useState(userData.displayName);
 
@@ -19,8 +20,8 @@ const Profile = ({ userData, setUserData }) => {
     if (userData.displayName !== newUserName) {
       await userData.updateProfile({
         displayName: newUserName,
-        uid: userData.uid,
-        updateProfile: (value) => userData.updateProfile(value),
+        // uid: userData.uid,
+        // updateProfile: (value) => userData.updateProfile(value),
       });
     }
     try {
@@ -72,11 +73,12 @@ const Profile = ({ userData, setUserData }) => {
   return (
     <>
       {updateProfileState ? (
-        <form onSubmit={onSubmit}>
-          <input type="text" onChange={onChange} value={newUserName}></input>
-          <input type="submit" value="Update Profile"></input>
-          <button onClick={onBackBtnClick}>Back</button>
-        </form>
+        <UpdateProfileFrom
+          onSubmit={onSubmit}
+          onChange={onChange}
+          onBackBtnClick={onBackBtnClick}
+          newUserName={newUserName}
+        />
       ) : (
         <>
           <button onClick={onUpdateProfileBtnClick}>Update Profile</button>
