@@ -43,7 +43,11 @@ const UpdateProfileFrom = ({
 
   return (
     <form onSubmit={onSubmit}>
-      <input type="text" onChange={onChange} value={newUserName}></input>
+      <input
+        type="text"
+        onChange={onChange}
+        value={newUserName || "Undefined"}
+      ></input>
       <input type="submit" value="Update Profile"></input>
       <button onClick={onBackBtnClick}>Back</button>
     </form>

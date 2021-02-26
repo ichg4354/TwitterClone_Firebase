@@ -3,7 +3,7 @@ import React from "react";
 import { useEffect, useState } from "react/cjs/react.development";
 import Tweets from "./Tweets";
 
-const TweetContainer = ({ userData, setImageFile, imageFile }) => {
+const TweetBox = ({ userData, setImageFile, imageFile }) => {
   const [tweet, setTweet] = useState("");
   const [tweets, setTweets] = useState([]);
 
@@ -84,7 +84,7 @@ const TweetContainer = ({ userData, setImageFile, imageFile }) => {
           onChange={onFileSubmit}
           id="imageInput"
         />
-        <div id="tweetContainer">
+        <div>
           {tweets.map((each) => (
             <Tweets
               tweetObj={each}
@@ -99,4 +99,4 @@ const TweetContainer = ({ userData, setImageFile, imageFile }) => {
   );
 };
 
-export default TweetContainer;
+export default TweetBox;

@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect, useState } from "react/cjs/react.development";
 
 const Profile = ({ userData, setUserData }) => {
-  const [updateProfileState, setUpdateProfileState] = useState(true);
+  const [updateProfileState, setUpdateProfileState] = useState(false);
   const [userTweets, setUserTweets] = useState([]);
   let history = useHistory();
 

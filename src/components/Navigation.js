@@ -9,7 +9,9 @@ const Navigation = ({ userData }) => {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/Profile">{userData.displayName}의 Profile</Link>
+          <Link to="/Profile">
+            {userData.displayName || "Undefined"}의 Profile
+          </Link>
         </li>
       </ul>
     </nav>
