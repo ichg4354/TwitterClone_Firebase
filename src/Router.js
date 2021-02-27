@@ -19,7 +19,6 @@ const AppRoute = ({ loggedIn, userData, setUserData }) => {
   return loggedIn ? (
     <>
       <Router>
-        <Navigation userData={userData} />
         <Switch>
           <Route path="/" exact>
             <Home userData={userData} />
@@ -28,6 +27,7 @@ const AppRoute = ({ loggedIn, userData, setUserData }) => {
             <Profile userData={userData} setUserData={setUserData} />
           </Route>
         </Switch>
+        <Navigation userData={userData} />
       </Router>
     </>
   ) : (
