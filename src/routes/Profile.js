@@ -48,6 +48,7 @@ const Profile = ({ userData, setUserData }) => {
       ) : (
         <>
           <button onClick={onUpdateProfileBtnClick}>Update Profile</button>
+          <button onClick={onLogOutClick}>Log Out</button>
           {userTweets.map((each) => (
             <Tweets
               key={each.createdAt}
@@ -56,7 +57,6 @@ const Profile = ({ userData, setUserData }) => {
               imagePath={each.imagePath}
             />
           ))}
-          <button onClick={onLogOutClick}>Log Out</button>
         </>
       )}
     </>

@@ -1,13 +1,16 @@
 import TweetBox from "components/TweetBox";
 import React from "react";
 import { useState } from "react/cjs/react.development";
+import styled from "styled-components";
 
 const Home = ({ userData }) => {
   const [imageFile, setImageFile] = useState("");
+  const HomeContainer = styled.div`
+    padding: 0 40px;
+  `;
 
   return (
-    <div>
-      <h1>HOME</h1>
+    <HomeContainer>
       {imageFile ? (
         <img
           src={URL.createObjectURL(imageFile)}
@@ -19,7 +22,7 @@ const Home = ({ userData }) => {
         setImageFile={setImageFile}
         imageFile={imageFile}
       />
-    </div>
+    </HomeContainer>
   );
 };
 

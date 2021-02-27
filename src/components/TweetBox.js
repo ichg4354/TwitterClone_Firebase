@@ -2,6 +2,7 @@ import { storageService, dataService } from "fBase";
 import React from "react";
 import { useEffect, useState } from "react/cjs/react.development";
 import Tweets from "./Tweets";
+import styled from "styled-components";
 
 const TweetBox = ({ userData, setImageFile, imageFile }) => {
   const [tweet, setTweet] = useState("");
@@ -68,33 +69,15 @@ const TweetBox = ({ userData, setImageFile, imageFile }) => {
 
   return (
     <>
-      <button onClick={onClearBtnClick}>Clear</button>
-      <form onSubmit={onSubmit}>
-        <input
-          onChange={onChange}
-          value={tweet}
-          type="text"
-          placeholder="Whats on your mind"
-          id="tweetInput"
-        ></input>
-        <input type="submit" value="Tweet!"></input>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={onFileSubmit}
-          id="imageInput"
+      
+      {tweets.map((each) => (
+        <Tweets
+          tweetObj={each}
+          key={each.id}
+          isTweeter={userData.uid === each.userId}
+          imagePath={each.imagePath}
         />
-        <div>
-          {tweets.map((each) => (
-            <Tweets
-              tweetObj={each}
-              key={each.id}
-              isTweeter={userData.uid === each.userId}
-              imagePath={each.imagePath}
-            />
-          ))}
-        </div>
-      </form>
+      ))}
     </>
   );
 };
