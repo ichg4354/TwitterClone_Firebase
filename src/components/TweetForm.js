@@ -3,6 +3,7 @@ import react from "react";
 import { useState } from "react/cjs/react.development";
 import styled from "styled-components";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import { RiAddFill } from "react-icons/ri";
 
 const TweetFormContainer = styled.div`
   display: flex;
@@ -21,9 +22,11 @@ const TweetTextContainer = styled.div`
   display: flex;
   justify-content: center;
   position: relative;
+  margin-top: 10vh;
 `;
 
 const Tweetform = styled.form``;
+
 const TweetSubmitBtn = styled.button`
   border-radius: 0 15px 15px 0;
   background-color: white;
@@ -31,8 +34,17 @@ const TweetSubmitBtn = styled.button`
   border: none;
   padding-right: 10px;
 `;
+const TweetFileLabel = styled.label`
+  cursor: pointer;
+  justify-content: center;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+`;
+
 const TweetFileinput = styled.input`
-  width: 30%;
+  display: none;
 `;
 
 const TweetForm = ({ imageFile, userData, setImageFile }) => {
@@ -96,6 +108,18 @@ const TweetForm = ({ imageFile, userData, setImageFile }) => {
           </TweetSubmitBtn>
         </TweetTextContainer>
         <div style={{ justifyContent: "center", display: "flex" }}>
+          <TweetFileLabel htmlFor="imageInput" style={{ color: "white" }}>
+            <span style={{ color: "#1da1f2", textAlign: "center" }}>
+              Add Photos
+            </span>
+            <RiAddFill
+              style={{
+                width: "20px",
+                height: "19px",
+                color: "#1DA1F2",
+              }}
+            />
+          </TweetFileLabel>
           <TweetFileinput
             type="file"
             accept="image/*"
