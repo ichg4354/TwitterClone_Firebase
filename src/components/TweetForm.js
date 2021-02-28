@@ -1,6 +1,39 @@
 import { storageService, dataService } from "fBase";
 import react from "react";
 import { useState } from "react/cjs/react.development";
+import styled from "styled-components";
+import { AiOutlineArrowLeft } from "react-icons/ai";
+
+const TweetFormContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const TweetTextinput = styled.input`
+  border: none;
+  padding: 10px 20px;
+  border-radius: 15px 0 0 15px;
+  width: 100%;
+  overflow: hidden;
+`;
+
+const TweetTextContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  position: relative;
+`;
+
+const Tweetform = styled.form``;
+const TweetSubmitBtn = styled.button`
+  border-radius: 0 15px 15px 0;
+  background-color: white;
+  padding: 0;
+  border: none;
+  padding-right: 10px;
+`;
+const TweetFileinput = styled.input`
+  width: 30%;
+`;
 
 const TweetForm = ({ imageFile, userData, setImageFile }) => {
   const [tweet, setTweet] = useState("");
@@ -48,25 +81,31 @@ const TweetForm = ({ imageFile, userData, setImageFile }) => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <input
-        onChange={onChange}
-        value={tweet}
-        type="text"
-        placeholder="Whats on your mind"
-        id="tweetInput"
-      ></input>
-      <input type="submit" value="Tweet!"></input>
-      <input
-        type="file"
-        accept="image/*"
-        onChange={onFileSubmit}
-        id="imageInput"
-      />
-      <div>
+    <TweetFormContainer>
+      <Tweetform onSubmit={onSubmit}>
+        <TweetTextContainer>
+          <TweetTextinput
+            onChange={onChange}
+            value={tweet}
+            type="text"
+            placeholder="Whats on your mind"
+            id="tweetInput"
+          ></TweetTextinput>
+          <TweetSubmitBtn type="submit" value="submit">
+            <AiOutlineArrowLeft style={{ width: "25px", height: "25px" }} />
+          </TweetSubmitBtn>
+        </TweetTextContainer>
+        <div style={{ justifyContent: "center", display: "flex" }}>
+          <TweetFileinput
+            type="file"
+            accept="image/*"
+            onChange={onFileSubmit}
+            id="imageInput"
+          />
+        </div>
         <button onClick={onClearBtnClick}>Clear</button>
-      </div>
-    </form>
+      </Tweetform>
+    </TweetFormContainer>
   );
 };
 

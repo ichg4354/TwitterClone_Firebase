@@ -3,11 +3,12 @@ import React from "react";
 import { useState } from "react/cjs/react.development";
 import styled from "styled-components";
 
+const HomeContainer = styled.div`
+  padding: 0 40px;
+`;
+
 const Home = ({ userData }) => {
   const [imageFile, setImageFile] = useState("");
-  const HomeContainer = styled.div`
-    padding: 0 40px;
-  `;
 
   return (
     <HomeContainer>
