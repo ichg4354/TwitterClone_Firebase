@@ -33,6 +33,7 @@ const SocialLoginBtn = styled.button`
   font-size: 15px;
   font-weight: 300;
   margin-bottom: 10px;
+  color: grey;
 `;
 
 const Auth = () => {

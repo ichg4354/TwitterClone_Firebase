@@ -5,8 +5,9 @@ import Tweets from "./Tweets";
 import styled from "styled-components";
 import TweetForm from "./TweetForm";
 
-const TweetBox = ({ userData, setImageFile, imageFile }) => {
+const TweetBox = ({ userData }) => {
   const [tweets, setTweets] = useState([]);
+  const [imageFile, setImageFile] = useState("");
 
   const getData = async () => {
     dataService
@@ -31,7 +32,9 @@ const TweetBox = ({ userData, setImageFile, imageFile }) => {
         imageFile={imageFile}
         userData={userData}
         setImageFile={setImageFile}
+        imageFile={imageFile}
       />
+      
       {tweets.map((each) => (
         <Tweets
           tweetObj={each}

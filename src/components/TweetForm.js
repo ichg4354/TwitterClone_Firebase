@@ -21,7 +21,6 @@ const TweetTextinput = styled.input`
 const TweetTextContainer = styled.div`
   display: flex;
   justify-content: center;
-  position: relative;
   margin-top: 10vh;
 `;
 
@@ -33,6 +32,15 @@ const TweetSubmitBtn = styled.button`
   padding: 0;
   border: none;
   padding-right: 10px;
+  display: flex;
+  align-items: center;
+`;
+
+const TweetImage = styled.img`
+  border-radius: 15px;
+  position: absolute;
+  left: 42px;
+  top: 40px;
 `;
 const TweetFileLabel = styled.label`
   cursor: pointer;
@@ -96,6 +104,12 @@ const TweetForm = ({ imageFile, userData, setImageFile }) => {
     <TweetFormContainer>
       <Tweetform onSubmit={onSubmit}>
         <TweetTextContainer>
+          {imageFile ? (
+            <TweetImage
+              src={URL.createObjectURL(imageFile)}
+              style={{ width: 50, height: 50 }}
+            ></TweetImage>
+          ) : null}
           <TweetTextinput
             onChange={onChange}
             value={tweet}
