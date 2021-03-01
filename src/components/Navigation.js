@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
 import styled from "styled-components";
 import {
   RiProfileLine,
@@ -8,7 +8,6 @@ import {
   RiTwitterFill,
 } from "react-icons/ri";
 import { useLocation } from "react-router-dom";
-import { useState } from "react/cjs/react.development";
 
 const NavContainer = styled.div`
   height: 50px;

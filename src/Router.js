@@ -6,11 +6,7 @@ import {
   Link,
   Redirect,
 } from "react-router-dom";
-import {
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from "react/cjs/react.development";
+import { useEffect, useLayoutEffect, useState } from "react";
 import Auth from "routes/Auth";
 import Home from "routes/Home";
 import Profile from "routes/Profile";

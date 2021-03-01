@@ -1,6 +1,6 @@
 import { dataService } from "fBase";
 import React from "react";
-import { useEffect, useState } from "react/cjs/react.development";
+import { useEffect, useState } from "react";
 import Tweets from "./Tweets";
 import styled from "styled-components";
 import TweetForm from "./TweetForm";
@@ -34,7 +34,7 @@ const TweetBox = ({ userData }) => {
         setImageFile={setImageFile}
         imageFile={imageFile}
       />
-      
+
       {tweets.map((each) => (
         <Tweets
           tweetObj={each}

@@ -1,6 +1,6 @@
 import TweetBox from "components/TweetBox";
 import React from "react";
-import { useState } from "react/cjs/react.development";
+import { useState } from "react";
 import styled from "styled-components";
 
 const HomeContainer = styled.div`

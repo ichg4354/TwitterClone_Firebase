@@ -1,5 +1,5 @@
 import { dataService, storageService } from "fBase";
-import { useEffect, useState } from "react/cjs/react.development";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const TweetsContainer = styled.div`

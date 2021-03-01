@@ -3,7 +3,7 @@ import UpdateProfileFrom from "components/UpdateProfileForm";
 import { authService, dataService } from "fBase";
 import React from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { useEffect, useState } from "react/cjs/react.development";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const ProfileContainer = styled.div`

@@ -1,6 +1,6 @@
 import { authService } from "fBase";
 import React from "react";
-import { useState } from "react/cjs/react.development";
+import { useState } from "react";
 import styled from "styled-components";
 
 const AuthFormContainer = styled.div`
@@ -47,8 +47,8 @@ const ErrorSpan = styled.span`
 `;
 
 const AuthForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(undefined);
+  const [password, setPassword] = useState(undefined);
   const [newUser, setNewUser] = useState(false);
   const [error, setError] = useState();
 

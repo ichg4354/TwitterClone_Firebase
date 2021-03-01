@@ -1,6 +1,6 @@
 import { storageService, dataService } from "fBase";
 import react from "react";
-import { useState } from "react/cjs/react.development";
+import { useState } from "react";
 import styled from "styled-components";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { RiAddFill } from "react-icons/ri";
