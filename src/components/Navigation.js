@@ -1,7 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import styled from "styled-components";
-import { RiProfileLine, RiTwitterLine } from "react-icons/ri";
+import {
+  RiProfileLine,
+  RiTwitterLine,
+  RiProfileFill,
+  RiTwitterFill,
+} from "react-icons/ri";
+import { useLocation } from "react-router-dom";
+import { useState } from "react/cjs/react.development";
 
 const NavContainer = styled.div`
   height: 50px;
@@ -44,15 +51,23 @@ const IconText = styled.span`
 `;
 
 const Navigation = ({ userData }) => {
+  const locationObj = useLocation();
+  const currentLocation = locationObj.pathname;
   return (
     <NavContainer>
       <NavUl>
         <NavLi>
           <Link to="/" style={{ textDecoration: "none" }}>
             <IconBox>
-              <RiTwitterLine
-                style={{ width: "30px", height: "30px", color: "#1DA1F2" }}
-              />
+              {currentLocation === "/" ? (
+                <RiTwitterFill
+                  style={{ width: "30px", height: "30px", color: "#1DA1F2" }}
+                />
+              ) : (
+                <RiTwitterLine
+                  style={{ width: "30px", height: "30px", color: "#1DA1F2" }}
+                />
+              )}
               <IconText>HOME</IconText>
             </IconBox>
           </Link>
@@ -60,9 +75,15 @@ const Navigation = ({ userData }) => {
         <NavLi>
           <Link to="/Profile" style={{ textDecoration: "none" }}>
             <IconBox>
-              <RiProfileLine
-                style={{ width: "30px", height: "30px", color: "#1DA1F2" }}
-              />
+              {currentLocation === "/" ? (
+                <RiProfileLine
+                  style={{ width: "30px", height: "30px", color: "#1DA1F2" }}
+                />
+              ) : (
+                <RiProfileFill
+                  style={{ width: "30px", height: "30px", color: "#1DA1F2" }}
+                />
+              )}
               <IconText>Profile</IconText>
             </IconBox>
           </Link>
