@@ -4,6 +4,46 @@ import { authService, dataService } from "fBase";
 import React from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect, useState } from "react/cjs/react.development";
+import styled from "styled-components";
+
+const ProfileContainer = styled.div`
+  padding: 40px 40px;
+`;
+
+const ProfileFunctions = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 30px;
+`;
+
+const LogoutBtn = styled.button`
+  background-color: #1da1f2;
+  color: white;
+  padding: 2em 3em;
+  border: none;
+  border-radius: 15px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  outline: none;
+  align-self: center;
+  cursor: pointer;
+  width: 80%;
+  margin-bottom: 15px;
+`;
+const ProfileEditBtn = styled.button`
+  width: 80%;
+  background-color: #1da1f2;
+  color: black;
+  padding: 2em 3em;
+  border-radius: 15px;
+  border: none;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  outline: none;
+  align-self: center;
+  cursor: pointer;
+`;
 
 const Profile = ({ userData, setUserData }) => {
   const [updateProfileState, setUpdateProfileState] = useState(false);
@@ -38,7 +78,7 @@ const Profile = ({ userData, setUserData }) => {
   }, []);
 
   return (
-    <>
+    <ProfileContainer>
       {updateProfileState ? (
         <UpdateProfileFrom
           userData={userData}
@@ -47,8 +87,13 @@ const Profile = ({ userData, setUserData }) => {
         />
       ) : (
         <>
-          <button onClick={onUpdateProfileBtnClick}>Update Profile</button>
-          <button onClick={onLogOutClick}>Log Out</button>
+          <ProfileFunctions>
+            <LogoutBtn onClick={onUpdateProfileBtnClick}>
+              Update Profile
+            </LogoutBtn>
+            <ProfileEditBtn onClick={onLogOutClick}>Log Out</ProfileEditBtn>
+          </ProfileFunctions>
+          <h1 style={{ color: "#1da1f2" }}>MY TWEETS</h1>
           {userTweets.map((each) => (
             <Tweets
               key={each.createdAt}
@@ -59,7 +104,7 @@ const Profile = ({ userData, setUserData }) => {
           ))}
         </>
       )}
-    </>
+    </ProfileContainer>
   );
 };
 

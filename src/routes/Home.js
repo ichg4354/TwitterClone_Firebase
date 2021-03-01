@@ -4,13 +4,10 @@ import { useState } from "react/cjs/react.development";
 import styled from "styled-components";
 
 const HomeContainer = styled.div`
-  padding: 0 40px;
+  padding: 40px 40px;
 `;
 
-
-
 const Home = ({ userData }) => {
-
   return (
     <HomeContainer>
       <TweetBox userData={userData} />

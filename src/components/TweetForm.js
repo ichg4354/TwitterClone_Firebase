@@ -8,6 +8,7 @@ import { RiAddFill } from "react-icons/ri";
 const TweetFormContainer = styled.div`
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
 `;
 
 const TweetTextinput = styled.input`
@@ -21,7 +22,6 @@ const TweetTextinput = styled.input`
 const TweetTextContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 10vh;
 `;
 
 const Tweetform = styled.form``;
@@ -40,7 +40,7 @@ const TweetImage = styled.img`
   border-radius: 15px;
   position: absolute;
   left: 42px;
-  top: 40px;
+  top: 30px;
 `;
 const TweetFileLabel = styled.label`
   cursor: pointer;
@@ -53,6 +53,17 @@ const TweetFileLabel = styled.label`
 
 const TweetFileinput = styled.input`
   display: none;
+`;
+
+const ClearBtnContainer = styled.div`
+  float: right;
+`;
+
+const ClearBtn = styled.button`
+  background: none;
+  border: 1px solid #1da1f2;
+  border-radius: 5px;
+  color: #1da1f2;
 `;
 
 const TweetForm = ({ imageFile, userData, setImageFile }) => {
@@ -141,7 +152,9 @@ const TweetForm = ({ imageFile, userData, setImageFile }) => {
             id="imageInput"
           />
         </div>
-        <button onClick={onClearBtnClick}>Clear</button>
+        <ClearBtnContainer style={{ float: "right" }}>
+          <ClearBtn onClick={onClearBtnClick}>Clear</ClearBtn>
+        </ClearBtnContainer>
       </Tweetform>
     </TweetFormContainer>
   );

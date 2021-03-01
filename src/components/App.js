@@ -5,13 +5,11 @@ import styled from "styled-components";
 
 const Footer = styled.footer`
   color: white;
-  font-weight: 300;
   width: 100vw;
   text-align: center;
+  font-weight: 300;
   position: absolute;
-  bottom: 30px;
-  width: 100%;
-  margin-bottom: 20px;
+  bottom: 50px;
 `;
 const MainContainer = styled.div`
   min-height: 100vh;
